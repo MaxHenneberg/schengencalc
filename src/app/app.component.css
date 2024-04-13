@@ -1,0 +1,12 @@
+.day-bar {
+  width: 2px;
+  height: 20px;
+}
+
+.in-range {
+  background-color: red;
+}
+
+.out-of-range {
+  background-color: green;
+}
