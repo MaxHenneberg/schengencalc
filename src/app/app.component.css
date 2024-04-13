@@ -10,3 +10,9 @@
 .out-of-range {
   background-color: green;
 }
+
+@media (max-width: 600px) {
+  div.display-flex {
+    flex-direction: column;
+  }
+}
