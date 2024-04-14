@@ -1,18 +1,77 @@
+table {
+  width: 100%;
+  background-color: #222; /* This is a darker shade of the current background color of the table */
+  border: 1px solid #fff; /* This makes the table borders white */
+  border-radius: 5px;
+}
+
+th {
+  color: #fff;
+  border-bottom: 1px solid #fff; /* This makes the table borders white */
+}
+
+td {
+  color: #fff;
+  border: 1px solid #fff; /* This makes the table borders white */
+}
+
+/* Rest of your CSS code */
+
+button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+button:hover {
+  background-color: #777;
+}
+
 .day-bar {
   width: 2px;
   height: 20px;
 }
 
 .in-range {
-  background-color: red;
+  background-color: #f00;
 }
 
 .out-of-range {
-  background-color: green;
+  background-color: #0f0;
 }
 
-@media (max-width: 600px) {
-  div.display-flex {
-    flex-direction: column;
-  }
+.month-marker {
+  position: relative;
+  bottom: -25px; /* Adjust this value to reduce the gap */
+  font-size: 10px;
+  color: #fff;
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 80vw;
+}
+
+.first-day-of-month {
+  border-left: 2px solid white;
+}
+
+.today {
+  border-left: 4px solid yellow;
+  background-color: yellow;
+  color: yellow;
+}
+
+.daysago {
+  border-right: 4px solid yellow;
+  background-color: yellow;
+  color: yellow;
+}
+
+.bold-date {
+  font-weight: bold;
 }

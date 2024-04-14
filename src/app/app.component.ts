@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Generate the last 180 days
-    for (let i = 0; i < 180; i++) {
+    // Generate the last 270 days and the next 90 days
+    for (let i = -30; i < 210; i++) {
       const date = new Date();
       date.setDate(date.getDate() - i);
       this.last180Days.push(date);
@@ -98,5 +98,39 @@ export class AppComponent implements OnInit {
       const difference = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)));
       return sum + difference;
     }, 0);
+  }
+
+  getColorBasedOnMonth(date: Date): string {
+    const today = new Date();
+    const pastDate = new Date();
+    pastDate.setDate(today.getDate() - 180);
+
+    if (date < pastDate || date > today) {
+      // If the date is 90 days further in the past or 90 days further in the future, return a light gray color
+      return `rgb(211, 211, 211)`;
+    } else if (this.isDateInSelectedRanges(date)) {
+      // If the date is in a selected range, return a shade of red
+      return `rgb(255, 0, 0)`;
+    } else if(this.isToday(date) || this.is180DaysAgo(date)) {
+      return `rgb(255, 255, 0)`
+    } else {
+      // If the date is not in a selected range and within the last 180 days, return a shade of green
+      return `rgb(0, 255, 0)`;
+    }
+  }
+
+  isToday(date: Date): boolean {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear();
+  }
+
+  is180DaysAgo(date: Date): boolean {
+    const pastDate = new Date();
+    pastDate.setDate(pastDate.getDate() - 180);
+    return date.getDate() === pastDate.getDate() &&
+      date.getMonth() === pastDate.getMonth() &&
+      date.getFullYear() === pastDate.getFullYear();
   }
 }

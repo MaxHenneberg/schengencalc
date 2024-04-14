@@ -1,1 +1,13 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body, html {
+  background-color: #333 !important; /* This is the current background color of the table */
+  color: #fff !important;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+app-root {
+  background-color: #333; /* This is the current background color of the table */
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}

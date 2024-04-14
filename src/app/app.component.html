@@ -1,4 +1,4 @@
-<div style="display: flex;" class="display-flex">
+<div class="content-wrapper">
   <form [formGroup]="range">
     <mat-form-field appearance="fill">
       <mat-label>Choose a date range</mat-label>
@@ -11,7 +11,7 @@
     </mat-form-field>
   </form>
 
-  <div style="margin-left: 20px;">
+  <div>
     <table mat-table [dataSource]="selectedRanges">
       <ng-container matColumnDef="start">
         <th mat-header-cell *matHeaderCellDef>Start Date</th>
@@ -44,10 +44,39 @@
       <tr mat-footer-row *matFooterRowDef="['footer']" [style.display]="selectedRanges.length > 0 ? 'table-row' : 'none'"></tr>
     </table>
   </div>
-</div>
-<div style="display: flex; overflow-x: auto; margin-top: 20px;">
-  <div *ngFor="let date of last180Days.slice().reverse()"
-       [ngClass]="{'in-range': isDateInSelectedRanges(date), 'out-of-range': !isDateInSelectedRanges(date)}"
-       class="day-bar">
+
+  <div style="display: flex; overflow-x: auto; margin-top: 20px; height: 50px">
+    <div *ngFor="let date of last180Days.slice().reverse(); let i = index"
+         [ngClass]="{'in-range': isDateInSelectedRanges(date), 'out-of-range': !isDateInSelectedRanges(date), 'first-day-of-month': date.getDate() === 1, 'today': isToday(date), 'daysago': is180DaysAgo(date)}"
+         class="day-bar" [style.backgroundColor]="getColorBasedOnMonth(date)">
+      <div *ngIf="date.getDate() === 1" class="month-marker">
+        {{ date | date:'MMM' }}
+      </div>
+      <div *ngIf="isToday(date) || is180DaysAgo(date)" style="position: relative; bottom: -25px; font-size: 10px; color: #fff;" class="bold-date">
+        {{ date | date:'d.M' }}
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+      <div style="width: 20px; height: 20px; background-color: rgb(0, 255, 0);"></div>
+      <div style="margin-left: 10px;">Last 180 days</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+      <div style="width: 20px; height: 20px; background-color: rgb(255, 0, 0);"></div>
+      <div style="margin-left: 10px;">Schengen Time</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+      <div style="width: 20px; height: 20px; background-color: rgb(211, 211, 211);"></div>
+      <div style="margin-left: 10px;">Not in the past 180 days. Not relevant for schengen</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+      <div style="width: 20px; height: 20px; background-color: rgb(255, 255, 0);"></div>
+      <div style="margin-left: 10px;">Today and 180 days ago</div>
+    </div>
   </div>
 </div>
+
+
+
